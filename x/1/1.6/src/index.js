@@ -40,7 +40,7 @@ class App extends React.Component {
 		}
 	}
 
-	kPalaute = (kentta) => {
+	kPalaute = (kentta) => () => {
 		this.setState(ws => {
 			let ns = {
 				palaute: {
@@ -54,26 +54,14 @@ class App extends React.Component {
 		})
 	}
 
-	kHyva = () => {
-		this.kPalaute("hyva")
-	}
-
-	kNeutraali = () => {
-		this.kPalaute("neutraali")
-	}
-
-	kHuono = () => {
-		this.kPalaute("huono")
-	}
-
 	render() {
 		return (
 			<div>
 				<Title name="anna palautetta" />
 				<div>
-					<Button handleClick={this.kHyva} name="hyvä" />
-					<Button handleClick={this.kNeutraali} name="neutraali" />
-					<Button handleClick={this.kHuono} name="huono" />
+					<Button handleClick={this.kPalaute("hyva")} name="hyvä" />
+					<Button handleClick={this.kPalaute("neutraali")} name="neutraali" />
+					<Button handleClick={this.kPalaute("huono")} name="huono" />
 				</div>
 				<Title name="statistiikka" />
 				<Statistics feedback={this.state.palaute} />
