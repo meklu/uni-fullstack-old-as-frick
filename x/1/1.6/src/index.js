@@ -1,21 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Otsikko = ({nimi}) => <h1>{nimi}</h1>
+const Title = ({name}) => <h1>{name}</h1>
 
-const Nappi = ({handleClick, nimi}) => <button onClick={handleClick}>{nimi}</button>
+const Button = ({handleClick, name}) => <button onClick={handleClick}>{name}</button>
 
-const Statsit = (props) => {
-	const {hyva, neutraali, huono} = props.tila.palaute
+const Statistic = ({name, value}) => <p>{name} {value}</p>
+
+const Statistics = (props) => {
+	const {hyva, neutraali, huono} = props.feedback
 	const ka = (hyva - huono) / (hyva + neutraali + huono)
 	const pos = (100 * hyva) / (hyva + neutraali + huono)
 	return (
 		<div>
-			<p>hyvä {hyva}</p>
-			<p>neutraali {neutraali}</p>
-			<p>huono {huono}</p>
-			<p>keskiarvo {ka}</p>
-			<p>positiivisia {pos}%</p>
+			<Statistic name="hyvä" value={hyva} />
+			<Statistic name="neutraali" value={neutraali} />
+			<Statistic name="huono" value={huono} />
+			<Statistic name="keskiarvo" value={ka} />
+			<Statistic name="positiivisia" value={pos + "%"} />
 		</div>
 	)
 }
@@ -61,14 +63,14 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<Otsikko nimi="anna palautetta" />
+				<Title name="anna palautetta" />
 				<div>
-					<Nappi handleClick={this.kHyva} nimi="hyvä" />
-					<Nappi handleClick={this.kNeutraali} nimi="neutraali" />
-					<Nappi handleClick={this.kHuono} nimi="huono" />
+					<Button handleClick={this.kHyva} name="hyvä" />
+					<Button handleClick={this.kNeutraali} name="neutraali" />
+					<Button handleClick={this.kHuono} name="huono" />
 				</div>
-				<Otsikko nimi="statistiikka" />
-				<Statsit tila={this.state} />
+				<Title name="statistiikka" />
+				<Statistics feedback={this.state.palaute} />
 			</div>
 		)
 	}
