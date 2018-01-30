@@ -7,11 +7,15 @@ const Nappi = ({handleClick, nimi}) => <button onClick={handleClick}>{nimi}</but
 
 const Statsit = (props) => {
 	const {hyva, neutraali, huono} = props.tila.palaute
+	const ka = (hyva - huono) / (hyva + neutraali + huono)
+	const pos = (100 * hyva) / (hyva + neutraali + huono)
 	return (
 		<div>
 			<p>hyvä {hyva}</p>
 			<p>neutraali {neutraali}</p>
 			<p>huono {huono}</p>
+			<p>keskiarvo {ka}</p>
+			<p>positiivisia {pos}%</p>
 		</div>
 	)
 }
