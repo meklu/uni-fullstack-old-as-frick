@@ -1,0 +1,13 @@
+käyttäjä->selain:
+note left of selain
+käyttäjä kirjoittaa jotain tekstikenttään ja lähettää lomakkeen,
+jonka oletustoiminnon JS estää.
+JS tallettaa muistiinpanon taulukkoon ja piirtää muistiinpanot
+uudelleen. tämän jälkeen JS lähettää datan JSON-muodossa
+palvelimelle
+end note
+selain->palvelin: POST fullstack-exampleapp.herokuapp.com/new_note_spa
+note left of palvelin
+palvelin tallettaa muistiinpanon
+end note
+palvelin->selain: status 201, olio luotu, takaisin viesti JSON-pätkänä
