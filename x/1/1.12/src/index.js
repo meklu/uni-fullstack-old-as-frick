@@ -13,6 +13,15 @@ const Score = ({votes, anecdote}) => {
 	)
 }
 
+const Anecdote = ({anecdotes, anecdote, votes}) => {
+	return (
+		<div>
+			{anecdotes[anecdote]}
+			<Score votes={votes} anecdote={anecdote} />
+		</div>
+	)
+}
+
 class App extends React.Component {
 	constructor(props) {
 		super(props)
@@ -36,15 +45,27 @@ class App extends React.Component {
 		this.setState({selected: select})
 	}
 
+	highscore = (votes) => {
+		let highest_i = 0;
+		let highest = -1;
+		votes.forEach((v, k, a) => {
+			const score = v
+			if (score > highest) {
+				highest = score
+				highest_i = k
+			}
+		})
+		return highest_i
+	}
+
 	render() {
 		return (
 			<div>
-				<div>
-				{this.props.anecdotes[this.state.selected]}
-				<Score votes={this.state.votes} anecdote={this.state.selected} />
-				</div>
+				<Anecdote anecdotes={this.props.anecdotes} anecdote={this.state.selected} votes={this.state.votes} />
 				<Button handleClick={this.vote(this.state.selected)} text="vote" />
 				<Button handleClick={this.randomize} text="next anecdote" />
+				<h1>anecdote with most votes</h1>
+				<Anecdote anecdotes={this.props.anecdotes} anecdote={this.highscore(this.state.votes)} votes={this.state.votes} />
 			</div>
 		)
 	}
