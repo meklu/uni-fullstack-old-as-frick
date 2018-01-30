@@ -3,12 +3,32 @@ import ReactDOM from 'react-dom'
 
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
+const Score = ({votes, anecdote}) => {
+	let score = votes[anecdote]
+	if (typeof(score) !== 'number') {
+		score = 0
+	}
+	return (
+		<div>has {score} votes</div>
+	)
+}
+
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			selected: 0
+			selected: 0,
+			votes: []
 		}
+	}
+
+	vote = (anecdote) => () => {
+		const votes = [...this.state.votes]
+		if (typeof(votes[anecdote]) !== 'number') {
+			votes[anecdote] = 0
+		}
+		votes[anecdote] = parseInt(votes[anecdote], 10) + 1
+		this.setState({votes: votes})
 	}
 
 	randomize = () => {
@@ -21,7 +41,9 @@ class App extends React.Component {
 			<div>
 				<div>
 				{this.props.anecdotes[this.state.selected]}
+				<Score votes={this.state.votes} anecdote={this.state.selected} />
 				</div>
+				<Button handleClick={this.vote(this.state.selected)} text="vote" />
 				<Button handleClick={this.randomize} text="next anecdote" />
 			</div>
 		)
