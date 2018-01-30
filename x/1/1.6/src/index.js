@@ -7,10 +7,16 @@ const Button = ({handleClick, name}) => <button onClick={handleClick}>{name}</bu
 
 const Statistic = ({name, value}) => <p>{name} {value}</p>
 
-const Statistics = (props) => {
-	const {hyva, neutraali, huono} = props.feedback
-	const ka = (hyva - huono) / (hyva + neutraali + huono)
-	const pos = (100 * hyva) / (hyva + neutraali + huono)
+const Statistics = ({feedback}) => {
+	const {hyva, neutraali, huono} = feedback
+	const yht = (hyva + neutraali + huono)
+	if (yht === 0) {
+		return (
+			<div>ei yhtään palautetta annettu</div>
+		)
+	}
+	const ka = (hyva - huono) / yht
+	const pos = (100 * hyva) / yht
 	return (
 		<div>
 			<Statistic name="hyvä" value={hyva} />
