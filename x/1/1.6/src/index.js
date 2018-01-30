@@ -5,7 +5,7 @@ const Title = ({name}) => <h1>{name}</h1>
 
 const Button = ({handleClick, name}) => <button onClick={handleClick}>{name}</button>
 
-const Statistic = ({name, value}) => <p>{name} {value}</p>
+const Statistic = ({name, value}) => <tr><td>{name}</td><td>{value}</td></tr>
 
 const Statistics = ({feedback}) => {
 	const {hyva, neutraali, huono} = feedback
@@ -18,13 +18,15 @@ const Statistics = ({feedback}) => {
 	const ka = (hyva - huono) / yht
 	const pos = (100 * hyva) / yht
 	return (
-		<div>
-			<Statistic name="hyvä" value={hyva} />
-			<Statistic name="neutraali" value={neutraali} />
-			<Statistic name="huono" value={huono} />
-			<Statistic name="keskiarvo" value={ka} />
-			<Statistic name="positiivisia" value={pos + "%"} />
-		</div>
+		<table>
+			<tbody>
+				<Statistic name="hyvä" value={hyva} />
+				<Statistic name="neutraali" value={neutraali} />
+				<Statistic name="huono" value={huono} />
+				<Statistic name="keskiarvo" value={ka} />
+				<Statistic name="positiivisia" value={pos + "%"} />
+			</tbody>
+		</table>
 	)
 }
 
